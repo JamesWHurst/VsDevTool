@@ -5,10 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VsDevTool.TestProject.Views"
         xmlns:ignore="http://www.DesignForge.com/ignore"
-        xmlns:lex="http://wpflocalizeextension.codeplex.com"
-        lex:ResxLocalizationProvider.DefaultAssembly="\LuViva\bin\Languages\LuvivaUI.Resources"
-        lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-        lex:LocalizeDictionary.DesignCulture="en"
         mc:Ignorable="d ignore"
         Title="SampleWindow1" Height="450" Width="800">
     <Grid>

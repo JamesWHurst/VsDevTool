@@ -1,0 +1,17 @@
+﻿
+Implement and test OutputPipes / email
+
+Think about how to handle the Microsoft.Extensions.Logging and ILogger compatability
+and whether to include ISimpleLogger
+and ILoggingProvider
+and ILognutLogger
+
+Should I use LogLevel, or LogOutputLevel ?
+-and what is that [EnumMember] attribute that's been commented-out?
+
+Implement configuration-files as XML, JSON, or YAML (or all of these possibilities?)
+
+Create a version of this for .NET Core, and for ASP.NET-Core
+
+Publish this also as a Nuget package
+

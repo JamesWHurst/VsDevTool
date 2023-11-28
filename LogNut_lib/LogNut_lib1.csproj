@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0BF8C1A4-444C-4591-8179-70979B786DEC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Hurst.LogNut</RootNamespace>
+    <AssemblyName>LogNut_lib</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.Scripting">
+      <HintPath>vendorlibs\Interop.Scripting.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0-preview.6.23329.7\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\Microsoft.Extensions.DependencyInjection.8.0.0-preview.6.23329.7\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0-preview.6.23329.7\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\Microsoft.Extensions.Logging.8.0.0-preview.6.23329.7\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\Microsoft.Extensions.Logging.Abstractions.8.0.0-preview.6.23329.7\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\Microsoft.Extensions.Options.8.0.0-preview.6.23329.7\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\Microsoft.Extensions.Primitives.8.0.0-preview.6.23329.7\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\System.Diagnostics.DiagnosticSource.8.0.0-preview.6.23329.7\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\AppsDesktop\XPresenter\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ISimpleLogger.cs" />
+    <Compile Include="Util\AccessibilityEvaluator.cs" />
+    <Compile Include="Util\Annotations.cs" />
+    <Compile Include="Util\BooleanEventArgs.cs" />
+    <Compile Include="Util\CloseApplicationRequestedEventArgs.cs" />
+    <Compile Include="Util\EnumHelper.cs" />
+    <Compile Include="Util\EnumLib.cs" />
+    <Compile Include="Util\ErrorOccurredEventArgs.cs" />
+    <Compile Include="Util\FileLocker.cs" />
+    <Compile Include="Util\FileStringLib.cs" />
+    <Compile Include="Util\FilesystemInterface.cs" />
+    <Compile Include="Util\FilesystemLib.cs" />
+    <Compile Include="Util\FilesystemLib_CopyFile.cs" />
+    <Compile Include="Util\FilesystemLib_DeleteDirectory.cs" />
+    <Compile Include="Util\FilesystemLib_DeleteFile.cs" />
+    <Compile Include="Util\FolderLocker.cs" />
+    <Compile Include="Util\IAccessibilityEvaluator.cs" />
+    <Compile Include="Util\IApp.cs" />
+    <Compile Include="Util\IdeLib.cs" />
+    <Compile Include="Util\IFilesystemInterface.cs" />
+    <Compile Include="Util\IInterlocution.cs" />
+    <Compile Include="Util\IVersionable.cs" />
+    <Compile Include="Util\MathLib.cs" />
+    <Compile Include="Util\Native\Enumerations.cs" />
+    <Compile Include="Util\Native\Win32.cs" />
+    <Compile Include="Util\StringLib.cs" />
+    <Compile Include="Util\SystemLib.cs" />
+    <Compile Include="Util\TimeLib.cs" />
+    <Compile Include="Util\UserNotificationEventArgs.cs" />
+    <Compile Include="Util\UserSettings.cs" />
+    <Compile Include="Util\ZDirectory.cs" />
+    <Compile Include="Util\ZDirectoryInfo.cs" />
+    <Compile Include="Util\ZFileInfo.cs" />
+    <Compile Include="DefaultLogRecordFormatter.cs" />
+    <Compile Include="Enumables.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="ILoggingProvider.cs" />
+    <Compile Include="ILognutLogger.cs" />
+    <Compile Include="ILogRecordFormatter.cs" />
+    <Compile Include="LogCategory.cs" />
+    <Compile Include="LogConfig.cs" />
+    <Compile Include="LogContext.cs" />
+    <Compile Include="LogEventArgs.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="LoggerDoNothing.cs" />
+    <Compile Include="LoggingException.cs" />
+    <Compile Include="LoggingFaultEventArgs.cs" />
+    <Compile Include="LogManager.cs" />
+    <Compile Include="LogRecord.cs" />
+    <Compile Include="LogSendRequest.cs" />
+    <Compile Include="NutFileLib.cs" />
+    <Compile Include="NutUtil.cs" />
+    <Compile Include="OutputPipes\EmailLib.cs" />
+    <Compile Include="OutputPipes\EmailOutputPipe.cs" />
+    <Compile Include="OutputPipes\IOutputPipe.cs" />
+    <Compile Include="OutputPipes\WindowsEventLogOutputPipe.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestFacility.cs" />
+    <Compile Include="Util\ZPath.cs" />
+    <Compile Include="YamlReaderWriter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="doc\Notes_NewUsers.txt" />
+    <Content Include="doc\Notes_Lognut.txt" />
+    <Content Include="doc\ToDo.txt" />
+    <Content Include="vendorlibs\Interop.Scripting.dll" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

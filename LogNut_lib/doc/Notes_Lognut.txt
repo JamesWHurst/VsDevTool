@@ -1,0 +1,10 @@
+﻿
+I may want to carefully consider whether to include those Nuget packages.
+LogNut is intended to be includable on minimal, and embedded and not-connected systems.
+
+
+Note that the enum-type LogLevel, here defined within Enumables.cs,
+may potentially conflict with Microsoft.Extensions.Logging.LogLevel.
+I have intentionally made the definition of LogLevel match that of Microsoft's.
+
+

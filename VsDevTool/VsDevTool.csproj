@@ -163,24 +163,6 @@
     <Folder Include="ReportOutput\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Libs\LogNut_lib\LogNut_lib1.csproj">
-      <Project>{0bf8c1a4-444c-4591-8179-70979b786dec}</Project>
-      <Name>LogNut_lib1</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Libs\BaseLibWpf\BaseLibWpf.csproj">
-      <Project>{3f46468e-d332-466b-bef3-3552459358f1}</Project>
-      <Name>BaseLibWpf</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Libs\UiBaseLib\UiBaseLib.csproj">
-      <Project>{fb0bad7e-02b1-42da-a0a4-6f3aa0c9c75f}</Project>
-      <Name>UiBaseLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Libs\XamlDevLib\XamlDevLib.csproj">
-      <Project>{1c0e16ed-98ad-4d50-95a7-80757bc99c08}</Project>
-      <Name>XamlDevLib</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -211,6 +193,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="doc\DevNotes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BaseLibWpf\BaseLibWpf.csproj">
+      <Project>{3f46468e-d332-466b-bef3-3552459358f1}</Project>
+      <Name>BaseLibWpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogNut_lib\LogNut_lib1.csproj">
+      <Project>{0bf8c1a4-444c-4591-8179-70979b786dec}</Project>
+      <Name>LogNut_lib1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UiBaseLib\UiBaseLib.csproj">
+      <Project>{fb0bad7e-02b1-42da-a0a4-6f3aa0c9c75f}</Project>
+      <Name>UiBaseLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XamlDevLib\XamlDevLib.csproj">
+      <Project>{1c0e16ed-98ad-4d50-95a7-80757bc99c08}</Project>
+      <Name>XamlDevLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

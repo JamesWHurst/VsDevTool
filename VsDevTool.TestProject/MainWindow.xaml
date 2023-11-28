@@ -5,10 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.DesignForge.com/ignore"
         mc:Ignorable="d ignore"
-        xmlns:lex="http://wpflocalizeextension.codeplex.com"
-        lex:ResxLocalizationProvider.DefaultAssembly="LuvivaUI.Resources"
-        lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-        lex:LocalizeDictionary.DesignCulture="en"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         
