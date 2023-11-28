@@ -1,0 +1,9 @@
+﻿<baseLibWpf:DesktopApplication x:Class="VsDevTool.TestProject.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:baseLibWpf="clr-namespace:Hurst.BaseLibWpf;assembly=Hurst.BaseLibWpf"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+    </Application.Resources>
+</baseLibWpf:DesktopApplication>

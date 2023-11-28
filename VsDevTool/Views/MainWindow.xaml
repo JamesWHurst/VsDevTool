@@ -1,0 +1,475 @@
+﻿<Window x:Class="VsDevTool.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:VsDevTool.ViewModels"
+    xmlns:models="clr-namespace:VsDevTool.DomainModels"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Background="{StaticResource ResourceKey=BrushTextureR40}"
+    DataContext="{Binding Source={x:Static vm:ApplicationViewModel.The}}"
+    Icon="/VsDevTool;component/Images/App.ico"
+    Title="{Binding WindowTitlePrefix}" Height="640" Width="1300">
+
+    <Window.InputBindings>
+        <KeyBinding Key="X" Modifiers="ALT" Command="{Binding Path=ExitApplicationCommand}"/>
+    </Window.InputBindings>
+
+    <DockPanel LastChildFill="True">
+        <!-- The main menu-bar -->
+        <Menu x:Name="MenuMain" DockPanel.Dock="Top">
+            <MenuItem Header="_File" x:Name="MenuMainFile">
+                <MenuItem x:Name="miFileOpen" Command="ApplicationCommands.Open" ToolTip="Open an Application that has been saved to disk."/>
+                <MenuItem x:Name="miFileSave" Command="{Binding SaveApplicationStructureCommand}" Header="Save Structure-Graph to Disk.." ToolTip="Save the structure of the current Application to disk."/>
+                <Separator/>
+                <MenuItem Command="{Binding Path=ExitApplicationCommand}" x:Name="miFileExit" Header="E_xit" ToolTip="Select this to exit this program (or press ALT+X)." InputGestureText="ALT+X" />
+            </MenuItem>
+            <MenuItem Header="_View" x:Name="MenuMainView">
+            </MenuItem>
+            <MenuItem Header="_Tools" x:Name="miTools">
+                <MenuItem x:Name="miChangeReference" Command="{Binding ChangeReferenceCommand}" Header="Change reference .." />
+                <MenuItem x:Name="miOptions" Command="{Binding Path=EditOptionsCommand}" Header="Options .."/>
+            </MenuItem>
+            <MenuItem Header="_Help" x:Name="MenuMainHelp">
+                <MenuItem x:Name="MenuAbout" Command="{Binding Path=ShowHelpAboutMeCommand}" Header="Help"/>
+            </MenuItem>
+            <MenuItem x:Name="miExit" Command="{Binding Path=ExitApplicationCommand}">
+                <MenuItem.Icon>
+                    <Image Height="16" Margin="0" Source="/VsDevTool;component/Images/Exit.png" Stretch="Uniform"
+                           ToolTip="Press here to exit from LuVivaBuilder (or press ALT+X)." />
+                </MenuItem.Icon>
+            </MenuItem>
+        </Menu>
+
+        <!-- The Status Bar -->
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0" HorizontalAlignment="Left">
+                <TextBlock Text="{Binding Path=OperationStatus}" MinWidth="150" ToolTip="This denotes what the program is currently doing." Padding="5,0" TextAlignment="Left"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Path=WhenLastAnalyzedText}" MinWidth="160" ToolTip="When was it last analysized" Padding="5,0" TextAlignment="Center"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3" HorizontalAlignment="Right">
+                <TextBlock Text="{Binding Path=ProgramVersion}" ToolTip="This is distinct from the assembly or file version."/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <!-- The Grid that contains the main window content -->
+        <Grid Margin="0,0,0,8">
+            <Grid.Resources>
+                <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="applicationAnalysisScopeValues">
+                    <ObjectDataProvider.MethodParameters>
+                        <x:Type TypeName="models:ApplicationAnalysisScope" />
+                    </ObjectDataProvider.MethodParameters>
+                </ObjectDataProvider>
+                <ObjectDataProvider MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}"
+                    x:Key="NetFrameworkVersionValues">
+                    <ObjectDataProvider.MethodParameters>
+                        <x:Type TypeName="models:NetFrameworkVersion" />
+                    </ObjectDataProvider.MethodParameters>
+                </ObjectDataProvider>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                </Style>
+            </Grid.Resources>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="240" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="320" />
+                    <ColumnDefinition Width="320" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Column 0. Select the Scope -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Analysis Scope:" HorizontalAlignment="Left" Margin="5,5,0,0" />
+                    <ComboBox Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"
+                        ItemsSource="{Binding Source={StaticResource applicationAnalysisScopeValues}}"
+                        Margin="6,2,9,0"
+                        SelectedValue="{Binding Path=Scope, Mode=TwoWay}" VerticalAlignment="Top" Width="Auto" />
+                </Grid>
+
+                <!-- Column 1. Application parameters -->
+                <Grid Background="AliceBlue" Grid.Column="1" Grid.Row="0" Margin="0,2,2,0"
+                    Visibility="{Binding ShowApplicationScope, Converter={StaticResource boolToVisibleVHiddenConv}}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Applic:" Margin="5,0,0,5" VerticalAlignment="Center" />
+                        <TextBox Grid.Column="1" MinWidth="190" Text="{Binding ApplicationName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+                    </Grid>
+                    <Label Content="VS-Solutions:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Bottom" />
+                    <ListBox Name="lbSolutionsForApplic" Grid.Column="0" Grid.Row="2" IsSynchronizedWithCurrentItem="True"
+                             ItemsSource="{Binding ApplicationSolutions}" Margin="4,0,0,0"
+                             SelectedValue="{Binding SelectedSolution}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Column="1" Grid.Row="2" Margin="5,0,0,0">
+                        <Button Command="{Binding AddSolutionToApplicationCommand}" Content="+" Width="20" />
+                        <Button Command="{Binding RemoveSolutionFromApplicationCommand}" Content="-" Width="20" />
+                    </StackPanel>
+                </Grid>
+
+                <!-- Column 2. VS-Solution parameters -->
+                <Grid Background="Beige" Grid.Column="2" Grid.Row="0" Margin="2,2,2,1" Visibility="{Binding ShowSolutionScope, Converter={StaticResource boolToVisibleVHiddenConv}}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="2. VS-Solution File:" Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0" />
+                    <TextBox Grid.Row="1" Text="{Binding VsSolutionFilePathname}" Margin="4,0,2,0" />
+                    <Button Command="{Binding SelectVsSolutionCommand}" Content="Select" Grid.Row="2" Margin="0,10,0,0" VerticalAlignment="Top" Width="40" />
+                </Grid>
+
+                <!-- Column 3. VS-Projects -->
+                <Grid Name="gridProjects" Background="Chartreuse" Grid.Column="3" Grid.RowSpan="5" Margin="2,2,2,0" Visibility="{Binding ShowProjectScope, Converter={StaticResource boolToVisibleVCollapsedConv}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="3. Projects:" HorizontalAlignment="Center"
+                           Margin="10,0,10,1" />
+                    <Button Command="{Binding LoadProjectsCommand}"
+                        Content="Load" Grid.Column="1" Grid.Row="1" Height="27" HorizontalAlignment="Right"
+                        Margin="1,10,5,5" 
+                        ToolTip="Press this button to load this ListBox with the projects of the selected solution." VerticalAlignment="Top" Width="50" />
+                    <ListBox Grid.Row="1" IsSynchronizedWithCurrentItem="True"
+                             ItemsSource="{Binding SolutionProjects}"
+                             MaxHeight="204" MinWidth="100" SelectedValue="{Binding SelectedProject}" VerticalAlignment="Stretch"
+                             Margin="9,9,9,5" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AssemblyName}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+
+                <!-- Column 4. VS-Project parameters -->
+                <Grid Background="Coral" Grid.Column="4" Grid.Row="0" Margin="2,2,4,4" Visibility="{Binding ShowProjectScope, Converter={StaticResource boolToVisibleVHiddenConv}}" >
+                    <Label Content="VS-Project File:" Margin="0" Visibility="{Binding ShowProjectScope, Converter={StaticResource boolToVisibleVHiddenConv}}" />
+                    <TextBox Text="{Binding VsProjectFilePathname}" Visibility="{Binding ShowProjectScope, Converter={StaticResource boolToVisibleVHiddenConv}}" />
+                    <Button Command="{Binding SelectVsProjectCommand}" Content="..." Margin="0" VerticalAlignment="Center" Width="30" />
+                </Grid>
+
+            </Grid>
+
+
+            <TabControl Grid.Row="1" Margin="10" SelectedIndex="{Binding SelectedTabItem}">
+                <TabItem Header="Source / Artifact Reports">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="255*" />
+                            <ColumnDefinition Width="256*" />
+                            <ColumnDefinition Width="67*" />
+                            <ColumnDefinition Width="188*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <CheckBox Content="Include Full Paths" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" IsChecked="{Binding IsToIncludeFullPaths}" Margin="10,6,0,6" VerticalAlignment="Center" />
+                        <CheckBox Content="Include all files" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" IsChecked="{Binding IsToIncludeFiles}" Margin="10,6,0,6"
+                            ToolTip="As opposed to listing only the projects" VerticalAlignment="Center" />
+                        <CheckBox Content="Include File Version" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" IsChecked="{Binding IsToIncludeVersions}" Margin="10,6,0,6" VerticalAlignment="Center" />
+                        <CheckBox Content="Include Last-Written Times" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" IsChecked="{Binding IsToIncludeWhenLastWritten}" Margin="10,6,0,6" VerticalAlignment="Center" />
+                        <CheckBox Content="Include Other Referenced Projects" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" IsChecked="{Binding IsToIncludeReferencedProjects}" Margin="10,6,0,6" VerticalAlignment="Center" Grid.ColumnSpan="2" />
+                        <CheckBox Content="Include Test Projects" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" IsChecked="{Binding IsToIncludeTestProjects}" Margin="10,6,0,6" VerticalAlignment="Center" Grid.ColumnSpan="2" />
+
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" Margin="10,10,0,10" Orientation="Horizontal">
+                            <Label Content="Module-Dependency Report Path:" Margin="0" VerticalAlignment="Center" />
+                            <TextBox Text="{Binding ModuleDependencyReportPath, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+                            <Button Command="{Binding SelectOutputPathCommand}" Content="..." Margin="10,0,1,0" VerticalAlignment="Center" Width="30" />
+                        </StackPanel>
+
+                        <TextBlock Background="Gray" FontFamily="Arial Narrow" Foreground="LightSkyBlue" Height="24"
+                            Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" Padding="5,5,5,0"
+                            Text="{Binding WhenWasLastStructureSnapshotText}" VerticalAlignment="Center" Visibility="{Binding IsLastSnapshot, Converter={StaticResource boolToVisibleVHiddenConv}}" Margin="31,13,31,12" />
+
+                        <Button Command="{Binding SetProjectVersionsCommand}" Content="Set Project Versions .." Grid.Column="0" Grid.Row="5" Margin="58,10,57,11" VerticalAlignment="Center" Width="140"/>
+                        <Button Command="{Binding CompareStructureSnapshotsCommand}" Content="Compare Structure-Snapshots" Grid.Column="2" Grid.Row="6" Margin="57,11,58,10" VerticalAlignment="Center" Width="140" Grid.ColumnSpan="2"/>
+
+                        <Button Command="{Binding SaveApplicationStructureCommand}" Content="Save Application to Disk" Grid.Column="1" Grid.Row="5" Margin="51,10,51,11" VerticalAlignment="Center" Width="155"/>
+                        <Button Command="{Binding GenerateDepGraphCommand}" Content="Generate Dep-List .." Grid.Column="0" Grid.Row="6" Margin="58,11,57,10" VerticalAlignment="Center" Width="140"/>
+                        <Button Command="{Binding OpenLastReportCommand}" Content="Open Report .." Grid.Column="2" Grid.Row="5" Margin="57,10,58,11" VerticalAlignment="Center" Width="140" Grid.ColumnSpan="2"/>
+
+                        <Button Command="{Binding GenerateFileListCommand}" Content="Generate File-List .." Grid.Column="0" Grid.Row="7" Margin="58,10,57,11" VerticalAlignment="Center" Width="140"/>
+
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Globalization">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <ListView Name="lvSetsOfStrings" IsSynchronizedWithCurrentItem="True" 
+                                ItemsSource="{Binding ResourceFiles}" Margin="5,5,5,5" SelectedItem="{Binding SelectedResourceFile}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Set" DisplayMemberBinding="{Binding SetName}" Width="55"/>
+                                        <GridViewColumn Header="File" DisplayMemberBinding="{Binding Pathname}" Width="100"/>
+                                        <GridViewColumn Header="Strings" DisplayMemberBinding="{Binding ContentSummary}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <Button Command="{Binding AddResourceFileToSetsCommand}" Content="Add from File.." Width="90"/>
+                                <Button Content="Delete" />
+                            </StackPanel>
+
+                            <GroupBox Grid.Column="0" Grid.Row="2" Header="Set Operations:" Margin="5,10,5,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Button Content="DIFF" />
+                                    <ComboBox Name="cbSet1" Grid.Column="1">
+                                        <ComboBoxItem Content="Set A"/>
+                                        <ComboBoxItem Content="Set B"/>
+                                    </ComboBox>
+                                    <ComboBox Name="cbSet2" Grid.Column="2">
+                                        <ComboBoxItem Content="Set A"/>
+                                        <ComboBoxItem Content="Set B"/>
+                                    </ComboBox>
+
+                                    <TextBlock Name="txtDiffResult" Grid.ColumnSpan="3" Grid.Row="1" Margin="5" Text="Set A has 400 more strings than set B" />
+                                </Grid>
+                            </GroupBox>
+
+                            <!-- This is the group of controls for importing from an Excel spreadsheet. -->
+                            <Grid Grid.Row="3" Margin="0,0,12,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Background="Aquamarine" Height="22" HorizontalAlignment="Stretch" Margin="4,4,0,0"
+                                    Text="{Binding SpreadsheetFilePathname}" VerticalAlignment="Center"/>
+                                <Button Command="{Binding SelectSpeadsheetForImportCommand}" Content="..." Grid.Column="1" Margin="4,0,0,0" Width="45" />
+                            </Grid>
+                            <Button Command="{Binding ImportStringsFromExcelSpreadsheetCommand}" Content="Import From Excel.." Grid.Row="4" HorizontalAlignment="Left" Width="120"/>
+                            <Button Command="{Binding CreateResourceFileCommand}" Content="Create Resx File" Grid.Row="4" Width="120"/>
+                        </Grid>
+
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Label Content="Localizable-Text XAML Prefix:" Margin="5,15,0,5" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1" Margin="0,15,1,5" Text="{Binding XamlPrefixForLocalizableValues, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="Resource-Manager key-pattern:" Grid.Row="1" Margin="5,5,0,5" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1" Grid.Row="1" Margin="0,5,1,5" Text="{Binding ResourceManagerKeyPattern, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button Command="{Binding GenerateGlobReportCommand}" Content="Generate String-Graph" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="0,10,10,10" VerticalAlignment="Center" Width="160"/>
+                            <Button Command="{Binding RefactorLexCommand}" Content="Refactor lex within XAML" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="0,10,10,10" VerticalAlignment="Center" Width="160"/>
+                            <Button Command="{Binding DeleteDesignCultureAttributesCommand}" Content="Del DesignCulture attributes" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="0,10,10,10" VerticalAlignment="Center" Width="160"/>
+                            <Button Command="{Binding SetGlobParametersToDefaultsCommand}" Content="Set to Defaults"
+                                Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="90" />
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Source Editing Tools">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Nuget Reference Text:" Grid.Column="3" HorizontalAlignment="Left" />
+                        <TextBox Grid.Column="3" HorizontalAlignment="Left"
+                                 Text="{Binding Path=NugetReference}" Width="190"/>
+                        <Button Command="{Binding FindAllNugetReferencesCommand}" Content="Find All" Grid.Column="3" Grid.Row="1" />
+                        <Button Command="{Binding FindThisNugetReferenceCommand}" Content="Find" Grid.Column="3" Grid.Row="2" />
+                        <Button Command="{Binding SetNugetTextReferencesCommand}" Content="Set" Grid.Column="3" Grid.Row="3" />
+
+                        <Label Content="Target .NET Framework version:" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" HorizontalAlignment="Left"
+                            ItemsSource="{Binding Source={StaticResource NetFrameworkVersionValues}}"
+                            SelectedValue="{Binding Path=TargetNetFrameworkVersion, Mode=TwoWay}" 
+                            VerticalAlignment="Center" />
+                        <Button Command="{Binding SetNetFrameworkVersionCommand}" Content="Set .NET-Framework Versions" Grid.Column="2" Grid.Row="0" Margin="10,19,10,20" VerticalAlignment="Center" Width="170"/>
+
+                        <Label Grid.Row="1" Content="Copyright Notice:" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1" Grid.Row="1" MinWidth="200" Text="{Binding ProjectCopyrightNotice, UpdateSourceTrigger=PropertyChanged}"
+                            ToolTip="To enter the Copyright symbol, hold down ALT and type 0169, then release the ALT key."/>
+                        <Button Command="{Binding SetCopyrightCommand}" Content="Set" Grid.Column="2" Grid.Row="1"/>
+
+                        <Label Grid.Row="2" Content="Company Name:" VerticalAlignment="Center"/>
+                        <TextBox Background="{Binding ColorOfInstallerStatusField}" Grid.Column="1" Grid.Row="2" MinWidth="200" Text="{Binding ProjectCompanyName, UpdateSourceTrigger=PropertyChanged}"
+                            ToolTip="This is the text to insert into each applicable VS-Project that represents the company-name."/>
+                        <Button Command="{Binding SetCompanyNameCommand}" Content="Set" Grid.Column="2" Grid.Row="2"/>
+
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Artifact Management">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Button Command="{Binding CleanAllArtifactsCommand}" Content="Clean All Artifacts"
+                            Grid.Column="1" Grid.Row="0" Margin="10,10" VerticalAlignment="Center" Width="140"/>
+                        <Button Command="{Binding ClearShadowCacheCommand}" Content="Clear Shadow-Cache"
+                            Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Right" Margin="10,10,30,10" VerticalAlignment="Center" Width="140"/>
+                        <StackPanel Grid.ColumnSpan="3" Grid.Row="1" Orientation="Horizontal">
+                            <Label Content="Root of Destination-Path for Source Files:" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox Text="{Binding CopySourceDestinationPath, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+                            <Button Command="{Binding SelectCopySourceDestinPathCommand}" Content="..." Margin="10,0,1,0" VerticalAlignment="Center" Width="30" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                            <Label Content="Installer Flash-Drive:  " VerticalAlignment="Center"/>
+                            <TextBlock Background="{Binding ColorOfInstallerStatusField}" FontWeight="DemiBold" Padding="10,1,10,2" Text="{Binding InstallerDriveDetectionStatus}" VerticalAlignment="Center" MinWidth="80" />
+                        </StackPanel>
+                        <Button Command="{Binding CopySourceCommand}" Content="Copy Source"
+                            Grid.Column="2" Grid.Row="2" Margin="10,10" VerticalAlignment="Center" Width="140"/>
+                        <Button Command="{Binding CopyReleaseToStageCommand}" Content="Copy Release to Stage"
+                            Grid.Column="1" Grid.Row="3" Margin="0,0" ToolTip="{Binding TooltipForCopyToStageButton}" VerticalAlignment="Center" Width="140"/>
+                        <Button Command="{Binding DeployReleaseGraphCommand}" Content="Deploy Release"
+                            Grid.Column="2" Grid.Row="3" Margin="10,10,30,10" VerticalAlignment="Center" Width="140"/>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Source-Code Change Statistics">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Code-Location 1:" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding MetricsComparisonSourceFolder1, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="600" />
+                        <Button Command="{Binding SelectMetricsComparsionSourceFolder1Command}" Content="..." Grid.Column="2"
+                            HorizontalAlignment="Left" Margin="10,0,1,0" VerticalAlignment="Center" Width="30" />
+
+                        <Label Content="Code-Location 2:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding MetricsComparisonSourceFolder2, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="600" />
+                        <Button Command="{Binding SelectMetricsComparsionSourceFolder2Command}" Content="..." Grid.Column="2" Grid.Row="1"
+                            HorizontalAlignment="Left" Margin="10,0,1,0" VerticalAlignment="Center" Width="30" />
+
+                        <Label Content="Report-Location:" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding MetricsComparisonReportDestinationPath, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="600" />
+                        <Button Command="{Binding SelectMetricsComparisonReportDestinationPathCommand}" Content="..." Grid.Column="2" Grid.Row="2"
+                            HorizontalAlignment="Left" Margin="10,0,1,0" VerticalAlignment="Center" Width="30" />
+
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,10">
+                            <Button Command="{Binding CompareCodeMetricsAndGenerateReportCommand}" Content="Generate Report .."
+                                HorizontalAlignment="Right" VerticalAlignment="Center" Width="110" />
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</Window>

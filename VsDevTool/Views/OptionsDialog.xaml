@@ -1,0 +1,38 @@
+﻿<Window x:Class="VsDevTool.Views.OptionsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:VsDevTool.ViewModels"
+    Background="{StaticResource ResourceKey=BrushTextureR40}"
+    DataContext="{DynamicResource applicationViewModel}"
+    Height="300" Width="600"
+    Title="VsDevTool: Options Window"
+    WindowStyle="ToolWindow">
+
+    <Window.Resources>
+        <ObjectDataProvider x:Key="applicationViewModel" ObjectType="{x:Type vm:ApplicationViewModel}" MethodName="get_The" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Content="Root Folder for App Version-State History:" VerticalAlignment="Center"/>
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <TextBox Text="{Binding DefaultRootFolderForVersionStateSnapshots}" />
+            <Button Command="{Binding SelectRootFolderForHistoryCommand}" Content="..." Margin="0,0,1,0" VerticalAlignment="Center" Width="30" />
+        </StackPanel>
+        <CheckBox Name="ckbxIsToCleanVsDirectoriesAlso" Grid.ColumnSpan="2" Grid.Row="1" IsChecked="{Binding IsToCleanVsDirectoriesAlso}" Margin="150,0,0,0" Content="Clean .vs directories when cleaning artifacts" VerticalAlignment="Center" />
+        <CheckBox Name="ckbxIsToExcludeMyOwnVsDirectory" Grid.ColumnSpan="2" Grid.Row="2" IsChecked="{Binding IsToExcludeMyOwnVsDirectory}" Margin="150,0,0,0" Content="Exclude this program's own project directory when cleaning artifacts" VerticalAlignment="Center" />
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Command="{Binding SetOptionsToDefaultsCommand}" Content="Set to Defaults" Margin="40,5" Width="94" />
+            <Button Click="OnClick_CloseButton" Content="Close" IsDefault="True" Margin="5" />
+        </StackPanel>
+    </Grid>
+</Window>

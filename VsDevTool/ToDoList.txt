@@ -1,0 +1,24 @@
+﻿
+Things yet to do to this project:
+
+* Make a list of values from any specific resx file
+
+* Generate a report that details the differences in the values within any two resx files
+
+* Scan a solution(s) or project and make a list of the lex:Loc values
+
+
+
+* Add the ability to adjust the location of a referenced project or assembly.
+  Eg, if I move BaseLib to another location, then I want to be able to update every project at once to reference the newer location.
+  And if that referenced project has multiple project-files, each with different targeted .NET Frameworkds, then try to use one of those
+  - e.g., if BaseLib, and I want to use .NET 4.0, and there is a BaseLib_4, or BaseLib_40, or BaseLib4, or BaseLib40 - then switch to that.
+
+* When making a file-list of a project, it should (optionally) include the files of other, referenced projects.
+
+* Repeated showing of the NotifyUser message-box, fails to make the sound-effect after the first time.
+
+* Do a build. For LuViva,
+  1. Delete the previous, and copy Release to a given location.
+  2. Assemble the installer-drive contents (reverse-engineer Ben's spreadsheet code)
+  3. If an installer thumbdrive is connected, delete everything on it and copy the new contents to it.

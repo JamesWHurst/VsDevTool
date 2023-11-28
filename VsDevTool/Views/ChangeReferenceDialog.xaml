@@ -1,0 +1,58 @@
+﻿<Window x:Class="VsDevTool.Views.ChangeReferenceDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:VsDevTool.Views"
+    xmlns:vm="clr-namespace:VsDevTool.ViewModels"
+    Background="{StaticResource ResourceKey=BrushTextureR40}"
+    DataContext="{DynamicResource applicationViewModel}"
+    mc:Ignorable="d"
+    Title="VsDevTool: Change Reference"
+    Height="300" Width="880"
+    WindowStyle="ToolWindow">
+
+    <Window.Resources>
+        <ObjectDataProvider x:Key="applicationViewModel" ObjectType="{x:Type vm:ApplicationViewModel}" MethodName="get_The" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="References Present:" HorizontalAlignment="Center" Margin="0,2,0,-3" />
+        <ListBox Grid.Row="1" IsSynchronizedWithCurrentItem="True" 
+            ItemsSource="{Binding ProjectReferencesUsed}" Margin="5,0,0,0" MinWidth="300" 
+            SelectedValue="{Binding SelectedProjectReference}" VerticalAlignment="Top" AlternationCount="2" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Pathname}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Column="1" Grid.Row="1" Margin="20,0,0,0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Assembly to reference:" Margin="0,0,0,-5" />
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBox Margin="0,0,5,0" Text="{Binding ReferenceToChangeTo}" />
+                <Button Command="{Binding SelectAssemblyToReferenceCommand}" Content="..." Margin="0,0,1,0" VerticalAlignment="Center" Width="30" />
+            </StackPanel>
+        </Grid>
+
+        <Button Command="{Binding SetToNewReferenceCommand}" Content="Set" Grid.Column="1" Grid.Row="1" />
+
+        <Button Click="OnClick_CloseButton" Content="Close" Grid.Column="1" Grid.Row="2"
+            HorizontalAlignment="Right" IsDefault="True" Margin="5" />
+    </Grid>
+</Window>

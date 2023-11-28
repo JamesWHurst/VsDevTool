@@ -1,0 +1,72 @@
+﻿Github repo,  JamesWHurst/VsDevTool
+
+
+Columns in the upper half, going left to right:
+
+0. Select the Scope
+   Has label "Analysis Scope" and Combobox with possible values.
+
+1. Application parameters
+   color: AliceBlue
+
+2. Solution parameters
+
+3. VS-Project parameters
+
+4. VS-Projects
+
+- - - -
+Flow of control, for the "Find All" button:
+
+invokes FindAllNugetReferencesCommand
+calls FindAllNugetReferences
+which calls DoToProjects(FindPackageSpecifications)
+
+FindPackageSpecifications
+  calls project.GetPackageReferencesFromTheProjectFile()
+
+
+
+- - - -
+Example of a package reference within the .csproj file:
+
+  <ItemGroup>
+    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+
+Q: How to distinguish Nuget packages from other references?
+By the HintPath including "packages" ?
+
+
+
+
+Newtonsoft:
+
+Newtonsoft.Json
+Latest stable is 13.0.3
+
+Newtonsoft.Json.Bson
+Latest is 1.0.2
+  Requires Newtonsoft.Json <>= 12.0.1
+1.0.1
+  Requires Newtonsoft.Json <>= 10.0.1
+
+Newtonsoft.Json.Schema
+Latest is 3.0.15
+  Requires Newtonsoft.Json >= 13.0.3
+3.0.14
+  Requires Newtonsoft.Json >= 12.0.3
+3.0.13
+  Requires Newtonsoft.Json >= 12.0.2
+3.0.10
+  Requires Newtonsoft.Json >= 11.0.1
+3.0.1
+  Requires Newtonsoft.Json >= 10.0.2

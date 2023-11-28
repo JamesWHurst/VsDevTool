@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<keyboardLayout name="US" description="US standard keyboard layout" xmlns="http://tempuri.org/KeyboardLayout.xsd">
+  <keyRows>
+    <keyRow row="1">
+      <key>
+        <keyState state="normal" value="1"/>
+        <keyState state="shift" value="!"/>
+        <keyState state="altGr" value="~"/>
+      </key>
+      <key>
+        <keyState state="normal" value="2"/>
+        <keyState state="shift" value="@"/>
+      </key>
+      <key>
+        <keyState state="normal" value="3"/>
+        <keyState state="shift" value="#"/>
+      </key>
+      <key>
+        <keyState state="normal" value="4"/>
+        <keyState state="shift" value="$"/>
+      </key>
+      <key>
+        <keyState state="normal" value="5"/>
+        <keyState state="shift" value="%"/>
+      </key>
+      <key>
+        <keyState state="normal" value="6"/>
+        <keyState state="shift" value="^"/>
+      </key>
+      <key>
+        <keyState state="normal" value="7"/>
+        <keyState state="shift" value="&amp;"/>
+      </key>
+      <key>
+        <keyState state="normal" value="8"/>
+        <keyState state="shift" value="*"/>
+      </key>
+      <key>
+        <keyState state="normal" value="9"/>
+        <keyState state="shift" value="("/>
+      </key>
+      <key>
+        <keyState state="normal" value="0"/>
+        <keyState state="shift" value=")"/>
+      </key>
+      <key>
+        <keyState state="normal" value="-"/>
+        <keyState state="shift" value="_"/>
+      </key>
+      <key>
+        <keyState state="normal" value="="/>
+        <keyState state="shift" value="+"/>
+      </key>
+    </keyRow>
+    <keyRow row="2">
+      <key>
+        <keyState state="normal" value="q"/>
+        <keyState state="shift" value="Q"/>
+      </key>
+      <key>
+        <keyState state="normal" value="w"/>
+        <keyState state="shift" value="W"/>
+      </key>
+      <key>
+        <keyState state="normal" value="e"/>
+        <keyState state="shift" value="E"/>
+      </key>
+      <key>
+        <keyState state="normal" value="r"/>
+        <keyState state="shift" value="R"/>
+      </key>
+      <key>
+        <keyState state="normal" value="t"/>
+        <keyState state="shift" value="T"/>
+      </key>
+      <key>
+        <keyState state="normal" value="y"/>
+        <keyState state="shift" value="Y"/>
+      </key>
+      <key>
+        <keyState state="normal" value="u"/>
+        <keyState state="shift" value="U"/>
+      </key>
+      <key>
+        <keyState state="normal" value="i"/>
+        <keyState state="shift" value="I"/>
+      </key>
+      <key>
+        <keyState state="normal" value="o"/>
+        <keyState state="shift" value="O"/>
+      </key>
+      <key>
+        <keyState state="normal" value="p"/>
+        <keyState state="shift" value="P"/>
+      </key>
+      <key>
+        <keyState state="normal" value="["/>
+        <keyState state="shift" value="{"/>
+      </key>
+      <key>
+        <keyState state="normal" value="]"/>
+        <keyState state="shift" value="}"/>
+      </key>
+    </keyRow>
+    <keyRow row="3">
+      <key>
+        <keyState state="normal" value="a"/>
+        <keyState state="shift" value="A"/>
+      </key>
+      <key>
+        <keyState state="normal" value="s"/>
+        <keyState state="shift" value="S"/>
+      </key>
+      <key>
+        <keyState state="normal" value="d"/>
+        <keyState state="shift" value="D"/>
+      </key>
+      <key>
+        <keyState state="normal" value="f"/>
+        <keyState state="shift" value="F"/>
+      </key>
+      <key>
+        <keyState state="normal" value="g"/>
+        <keyState state="shift" value="G"/>
+      </key>
+      <key>
+        <keyState state="normal" value="h"/>
+        <keyState state="shift" value="H"/>
+      </key>
+      <key>
+        <keyState state="normal" value="j"/>
+        <keyState state="shift" value="J"/>
+      </key>
+      <key>
+        <keyState state="normal" value="k"/>
+        <keyState state="shift" value="K"/>
+      </key>
+      <key>
+        <keyState state="normal" value="l"/>
+        <keyState state="shift" value="L"/>
+      </key>
+      <key>
+        <keyState state="normal" value=";"/>
+        <keyState state="shift" value=":"/>
+      </key>
+      <key>
+        <keyState state="normal" value="&apos;"/>
+        <keyState state="shift" value="&quot;"/>
+      </key>
+    </keyRow>
+    <keyRow row="4">
+      <key>
+        <keyState state="normal" value="z"/>
+        <keyState state="shift" value="Z"/>
+      </key>
+      <key>
+        <keyState state="normal" value="x"/>
+        <keyState state="shift" value="X"/>
+      </key>
+      <key>
+        <keyState state="normal" value="c"/>
+        <keyState state="shift" value="C"/>
+      </key>
+      <key>
+        <keyState state="normal" value="v"/>
+        <keyState state="shift" value="V"/>
+      </key>
+      <key>
+        <keyState state="normal" value="b"/>
+        <keyState state="shift" value="B"/>
+      </key>
+      <key>
+        <keyState state="normal" value="n"/>
+        <keyState state="shift" value="N"/>
+      </key>
+      <key>
+        <keyState state="normal" value="m"/>
+        <keyState state="shift" value="M"/>
+      </key>
+      <key>
+        <keyState state="normal" value=","/>
+        <keyState state="shift" value="&lt;"/>
+      </key>
+      <key>
+        <keyState state="normal" value="."/>
+        <keyState state="shift" value="&gt;"/>
+      </key>
+      <key>
+        <keyState state="normal" value="/"/>
+        <keyState state="shift" value="?"/>
+      </key>
+    </keyRow>
+  </keyRows>
+</keyboardLayout>

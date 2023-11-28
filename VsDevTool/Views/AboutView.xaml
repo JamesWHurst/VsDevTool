@@ -1,0 +1,44 @@
+﻿<Window x:Class="VsDevTool.Views.AboutView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{DynamicResource bugBrush}" 
+    Title="GTI VS-Design-Tool:  About this" 
+    Height="719" Width="416"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="ToolWindow">
+
+    <Window.Resources>
+        <ImageBrush x:Key="bugBrush"
+                    ImageSource="/VsDevTool;component/Images/DamselFly_416x719.jpg"
+                    Viewport="0,0,416,719"
+                    ViewportUnits="Absolute"
+                    Stretch="None"
+                    AlignmentX="Left"
+                    AlignmentY="Top"
+                    TileMode="None" />
+        <SolidColorBrush x:Key="textHelp" Color="#FF64A6FF"/>
+    </Window.Resources>
+
+    <Grid Margin="6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="txtAbout" FontFamily="Adobe Garamond Pro" FontSize="16"  
+                       Margin="10,5,10,0"
+                       Text="VsDevTool (Visual Studio Developer-Tool) is intended as a multipurpose toolbox to aid in the maintainance of Visual Studio solutions and projects."
+                       TextWrapping="Wrap" />
+        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" >
+            <TextBlock x:Name="txtContact" Foreground="{StaticResource textHelp}" HorizontalAlignment="Left"
+                Margin="20,0,0,50"
+                Text="Designer: James W. Hurst, JamesH@DesignForge.com"
+                TextWrapping="Wrap" Width="150" />
+            <TextBlock x:Name="txtVersion" Margin="20,0,0,10" Text="Version" />
+        </StackPanel>
+        <Button x:Name="btnOk" Content="OK" Grid.Row="1" Height="24" HorizontalAlignment="Right" IsCancel="True" IsDefault="True"
+            Margin="10,5" Click="OnClick_OkButton" ToolTip="You can click this when you're done." VerticalAlignment="Bottom" Width="80" />
+    </Grid>
+</Window>
